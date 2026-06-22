@@ -197,3 +197,39 @@ const completedCard = document.getElementById("completed-Count");
 // Run when page loads
 renderTasks();
 updateDashboard();
+const generatePlanButton = document.getElementById("generatePlanButton");
+
+if (generatePlanButton) {
+  generatePlanButton.addEventListener("click", () => {
+    const pendingTasks = tasks.filter((task) => !task.completed);
+
+    if (pendingTasks.length === 0) {
+      alert("Add a task first so DeadlinePilot can create your plan.");
+      return;
+    }
+
+    const riskScore = {
+      High: 3,
+      Medium: 2,
+      Low: 1
+    };
+
+    const sortedTasks = [...pendingTasks].sort((a, b) => {
+      if (riskScore[b.risk] !== riskScore[a.risk]) {
+        return riskScore[b.risk] - riskScore[a.risk];
+      }
+
+      return new Date(a.deadline) - new Date(b.deadline);
+    });
+
+    const nextTask = sortedTasks[0];
+
+    alert(
+      "YOUR NEXT BEST ACTION:\n\n" +
+      nextTask.title + "\n" +
+      "Risk: " + nextTask.risk + "\n" +
+      "Estimated focus time: " + nextTask.hours + " hour(s)\n\n" +
+      "Start with this task first."
+    );
+  });
+}

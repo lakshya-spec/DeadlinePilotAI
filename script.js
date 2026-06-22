@@ -185,6 +185,13 @@ const completedCard = document.getElementById("completed-Count");
   if (dueTodayCard) dueTodayCard.textContent = dueToday;
   if (atRiskCard) atRiskCard.textContent = atRisk;
   if (completedCard) completedCard.textContent = completed;
+  const addTaskButton = document.querySelector(".add-task-button");
+  if (addTaskButton) {
+  addTaskButton.textContent =
+    tasks.length === 0 ? "Add your first task" : "Add another task";
+}
+
+
 }
 
 // Run when page loads

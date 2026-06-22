@@ -197,6 +197,32 @@ const completedCard = document.getElementById("completed-Count");
 // Run when page loads
 renderTasks();
 updateDashboard();
+const rescueModeButton = document.getElementById("rescueModeButton");
+
+if (rescueModeButton) {
+  rescueModeButton.addEventListener("click", () => {
+    const urgentTasks = tasks.filter(
+      (task) => task.risk === "High" && !task.completed
+    );
+
+    if (urgentTasks.length === 0) {
+      alert("No urgent unfinished tasks right now. You are in control!");
+      return;
+    }
+
+    const urgentTask = urgentTasks[0];
+
+    alert(
+      "RESCUE MODE ACTIVATED 🚨\n\n" +
+      "Focus only on: " + urgentTask.title + "\n" +
+      "Estimated time: " + urgentTask.hours + " hour(s)\n\n" +
+      "Step 1: Remove distractions.\n" +
+      "Step 2: Work for 25 minutes.\n" +
+      "Step 3: Take a 5-minute break.\n" +
+      "Step 4: Repeat until this task is finished."
+    );
+  });
+}
 const generatePlanButton = document.getElementById("generatePlanButton");
 
 if (generatePlanButton) {

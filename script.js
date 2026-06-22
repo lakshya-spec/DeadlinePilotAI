@@ -224,12 +224,15 @@ if (generatePlanButton) {
 
     const nextTask = sortedTasks[0];
 
-    alert(
-      "YOUR NEXT BEST ACTION:\n\n" +
-      nextTask.title + "\n" +
-      "Risk: " + nextTask.risk + "\n" +
-      "Estimated focus time: " + nextTask.hours + " hour(s)\n\n" +
-      "Start with this task first."
-    );
+    const aiPlanText = document.getElementById("aiPlanText");
+    
+
+if (aiPlanText) {
+  aiPlanText.innerHTML =
+    "<strong>Next best action:</strong> " + nextTask.title + "<br>" +
+    "Risk: " + nextTask.risk + "<br>" +
+    "Focus time: " + nextTask.hours + " hour(s)<br><br>" +
+    "Start with this task first.";
+}
   });
 }

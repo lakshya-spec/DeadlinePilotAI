@@ -33,3 +33,6 @@ An AI-powered deadline recovery agent that helps students and professionals prio
 - Dark/light mode toggle
 - User authentication and cloud sync
 - Calendar integration
+## Author
+
+Built by Lakshya Srivastava

@@ -19,6 +19,7 @@ const addTaskButtons = document.querySelectorAll(
 );
 const filterButtons = document.querySelectorAll(".filter-btn");
 let activeCategory = "All";
+let editingTaskId = null;
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     activeCategory = button.dataset.category;
@@ -105,7 +106,22 @@ taskForm.addEventListener("submit", (event) => {
     newTask.importance
   );
 
+  if (editingTaskId !== null) {
+  tasks = tasks.map((task) =>
+    task.id === editingTaskId
+      ? {
+          ...task,
+          ...newTask,
+          id: editingTaskId,
+          completed: task.completed
+        }
+      : task
+  );
+
+  editingTaskId = null;
+} else {
   tasks.push(newTask);
+}
 
   // Save tasks permanently in this browser
   localStorage.setItem("deadlinePilotTasks", JSON.stringify(tasks));
@@ -156,13 +172,21 @@ const filteredTasks =
           <span class="risk-badge risk-${task.risk.toLowerCase()}">
             ${task.risk} Risk
           </span>
+          <div class="task-actions">
+  <button class="complete-task-btn" data-id="${task.id}">
+    ${task.completed ? "Completed ✓" : "Mark Complete"}
+  </button>
+   <button class="edit-task-btn" data-id="${task.id}">
+    Edit
+  </button>
 
-          <button class="complete-task-btn" data-id="${task.id}">
-            ${task.completed ? "Completed ✓" : "Mark Complete"}
-          </button>
-          <button class="delete-task-btn" data-id="${task.id}">
-  Delete
-</button>
+  <button class="delete-task-btn" data-id="${task.id}">
+    Delete
+  </button>
+</div>
+
+          
+
         </div>
       </div>
     `
@@ -199,9 +223,26 @@ document.querySelectorAll(".delete-task-btn").forEach((button) => {
     updateDashboard();
   });
 });
+// Edit task
+document.querySelectorAll(".edit-task-btn").forEach((button) => {
+  button.addEventListener("click", () => {
+    const taskId = Number(button.dataset.id);
 
+    const taskToEdit = tasks.find((task) => task.id === taskId);
 
+    if (!taskToEdit) return;
 
+    editingTaskId = taskId;
+
+    taskTitle.value = taskToEdit.title;
+    taskDeadline.value = taskToEdit.deadline;
+    taskHours.value = taskToEdit.hours;
+    taskImportance.value = taskToEdit.importance;
+    taskCategory.value = taskToEdit.category;
+
+    openTaskModal();
+  });
+});
 }
 
 // Update top dashboard cards

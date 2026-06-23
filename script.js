@@ -17,6 +17,20 @@ const taskCategory = document.getElementById("taskCategory");
 const addTaskButtons = document.querySelectorAll(
   ".add-task-button, .add-task-btn, .primary-button"
 );
+const filterButtons = document.querySelectorAll(".filter-btn");
+let activeCategory = "All";
+filterButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    activeCategory = button.dataset.category;
+
+    filterButtons.forEach((btn) => {
+      btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+    renderTasks();
+  });
+});
 
 // Load saved tasks from browser storage
 let tasks = JSON.parse(localStorage.getItem("deadlinePilotTasks")) || [];
@@ -105,6 +119,7 @@ taskForm.addEventListener("submit", (event) => {
 function renderTasks() {
   const taskList = document.querySelector(".task-list, .tasks-list, .mission-list");
 
+
   if (!taskList) {
     console.log("Task list container not found yet.");
     return;
@@ -119,8 +134,12 @@ function renderTasks() {
     `;
     return;
   }
+const filteredTasks =
+  activeCategory === "All"
+    ? tasks
+    : tasks.filter((task) => task.category === activeCategory);
 
-  taskList.innerHTML = tasks
+  taskList.innerHTML = filteredTasks
     .map(
       (task) => `
       <div class="task-card">

@@ -5,7 +5,7 @@ An AI-powered deadline recovery agent that helps students and professionals prio
 ## Core Features
 - Task management with deadlines and estimated effort
 - Deadline Risk Meter
-- AI daily planner powered by Gemini
+- Smart task prioritization based on urgency, effort, and risk
 - Rescue Mode for last-minute recovery plans
 - Smart task breakdown and next-best-action guidance
 
@@ -13,8 +13,6 @@ An AI-powered deadline recovery agent that helps students and professionals prio
 - HTML
 - CSS
 - JavaScript
-- Google Gemini API
-- Google AI Studio
 - LocalStorage
 - GitHub
 ## Live Demo

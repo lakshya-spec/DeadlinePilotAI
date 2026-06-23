@@ -160,6 +160,9 @@ const filteredTasks =
           <button class="complete-task-btn" data-id="${task.id}">
             ${task.completed ? "Completed ✓" : "Mark Complete"}
           </button>
+          <button class="delete-task-btn" data-id="${task.id}">
+  Delete
+</button>
         </div>
       </div>
     `
@@ -182,7 +185,23 @@ const filteredTasks =
       renderTasks();
       updateDashboard();
     });
+    });
+    // Delete task
+document.querySelectorAll(".delete-task-btn").forEach((button) => {
+  button.addEventListener("click", () => {
+    const taskId = Number(button.dataset.id);
+
+    tasks = tasks.filter((task) => task.id !== taskId);
+
+    localStorage.setItem("deadlinePilotTasks", JSON.stringify(tasks));
+
+    renderTasks();
+    updateDashboard();
   });
+});
+
+
+
 }
 
 // Update top dashboard cards

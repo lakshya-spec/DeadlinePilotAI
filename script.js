@@ -126,7 +126,10 @@ function renderTasks() {
       <div class="task-card">
         <div>
           <h3>${task.title}</h3>
-          <p>${task.category} • ${task.hours} hour(s)</p>
+          <p>
+          <span class="category-badge">${task.category}</span>
+  • ${task.hours} hour(s)
+  </p>
           <p>Deadline: ${new Date(task.deadline).toLocaleString()}</p>
         </div>
 

@@ -665,3 +665,43 @@ select:focus {
   transform: translateY(-2px);
   background: rgba(59, 130, 246, 0.38);
 }
+.view-all-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 10px 16px;
+  border: 1px solid rgba(156, 130, 255, 0.55);
+  border-radius: 12px;
+
+  background: rgba(126, 92, 255, 0.16);
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.view-all-btn span {
+  font-size: 18px;
+  line-height: 1;
+  transition: transform 0.25s ease;
+}
+
+.view-all-btn:hover {
+  background: rgba(126, 92, 255, 0.34);
+  border-color: #b7a4ff;
+  box-shadow: 0 0 18px rgba(140, 110, 255, 0.35);
+  transform: translateY(-2px);
+}
+
+.view-all-btn:hover span {
+  transform: translateX(4px);
+}
+
+.view-all-btn:active {
+  transform: translateY(0);
+}

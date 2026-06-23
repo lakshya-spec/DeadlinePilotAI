@@ -344,3 +344,13 @@ if (aiPlanText) {
 }
   });
 }
+const viewAllBtn = document.getElementById("viewAllBtn");
+
+if (viewAllBtn) {
+  viewAllBtn.addEventListener("click", () => {
+    document.getElementById("taskList").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  });
+}

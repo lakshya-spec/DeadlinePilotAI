@@ -173,6 +173,9 @@ const filteredTasks =
             ${task.risk} Risk
           </span>
           <div class="task-actions">
+          <div class="progress-container">
+    <div class="progress-fill" style="width: ${task.completed ? "100%" : "0%"};"></div>
+</div>
   <button class="complete-task-btn" data-id="${task.id}">
     ${task.completed ? "Completed ✓" : "Mark Complete"}
   </button>
@@ -331,16 +334,48 @@ if (generatePlanButton) {
     });
 
     const nextTask = sortedTasks[0];
+    const deadline = new Date(nextTask.deadline);
+const now = new Date();
+
+const difference = deadline - now;
+
+const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+const hours = Math.floor(
+    (difference % (1000 * 60 * 60 * 24)) /
+    (1000 * 60 * 60)
+);
+let deadlineText = "";
+
+if (difference < 0) {
+    deadlineText = "🚨 Overdue";
+} else if (days === 0 && hours === 0) {
+    deadlineText = "⏰ Due very soon";
+} else if (days === 0) {
+    deadlineText = `⏳ ${hours} hour(s) left`;
+} else {
+    deadlineText = `⏳ ${days} day(s) ${hours} hour(s) left`;
+}
 
     const aiPlanText = document.getElementById("aiPlanText");
     
 
 if (aiPlanText) {
-  aiPlanText.innerHTML =
-    "<strong>Next best action:</strong> " + nextTask.title + "<br>" +
-    "Risk: " + nextTask.risk + "<br>" +
-    "Focus time: " + nextTask.hours + " hour(s)<br><br>" +
-    "Start with this task first.";
+  aiPlanText.innerHTML = `
+<strong>🎯 Next Mission</strong><br><br>
+
+Complete <strong>${nextTask.title}</strong> first.<br>
+
+⚠️ Risk: <strong>${nextTask.risk}</strong><br>
+
+    Deadline: <strong>${deadlineText}</strong>
+
+
+⏱️ Estimated Focus: <strong>${nextTask.hours} hour(s)</strong><br><br>
+
+💡 Recommendation:<br>
+Start a 25-minute focus session, then take a 5-minute break. Finish this task before moving to the next one.
+`;
+    
 }
   });
 }

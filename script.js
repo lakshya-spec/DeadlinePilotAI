@@ -21,7 +21,7 @@ const filterButtons = document.querySelectorAll(".filter-btn");
 let activeCategory = "All";
 let editingTaskId = null;
 filterButtons.forEach((button) => {
-  button.addEventListener("click", () => {
+  button.addEventListener("click",() => {
     activeCategory = button.dataset.category;
 
     filterButtons.forEach((btn) => {
@@ -311,7 +311,7 @@ if (rescueModeButton) {
 const generatePlanButton = document.getElementById("generatePlanButton");
 
 if (generatePlanButton) {
-  generatePlanButton.addEventListener("click", () => {
+  generatePlanButton.addEventListener("click", async () => {
     const pendingTasks = tasks.filter((task) => !task.completed);
 
     if (pendingTasks.length === 0) {
@@ -359,23 +359,39 @@ if (difference < 0) {
     const aiPlanText = document.getElementById("aiPlanText");
     
 
-if (aiPlanText) {
-  aiPlanText.innerHTML = `
-<strong>🎯 Next Mission</strong><br><br>
+try {
+    const response = await fetch("http://localhost:3000/generate", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            prompt: `
+You are an AI study planner.
+Return plain text only.
+Do not use markdown.
+Do not use ** or #.
+Keep the response under 120 words
 
-Complete <strong>${nextTask.title}</strong> first.<br>
+Task: ${nextTask.title}
+Risk: ${nextTask.risk}
+Deadline: ${deadlineText}
+Estimated Hours: ${nextTask.hours}
 
-⚠️ Risk: <strong>${nextTask.risk}</strong><br>
+Give a short motivational study plan.
+`
+        })
+    });
 
-    Deadline: <strong>${deadlineText}</strong>
+    const data = await response.json();
 
+    aiPlanText.innerHTML = `
+        <strong>🎯 Next Mission</strong><br><br>
+        ${data.response.replace(/\n/g, "<br>")}
+    `;
 
-⏱️ Estimated Focus: <strong>${nextTask.hours} hour(s)</strong><br><br>
-
-💡 Recommendation:<br>
-Start a 25-minute focus session, then take a 5-minute break. Finish this task before moving to the next one.
-`;
-    
+} catch (error) {
+    aiPlanText.innerHTML = "❌ Couldn't contact the AI server.";
 }
   });
 }

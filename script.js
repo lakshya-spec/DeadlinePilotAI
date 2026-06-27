@@ -312,6 +312,8 @@ const generatePlanButton = document.getElementById("generatePlanButton");
 
 if (generatePlanButton) {
   generatePlanButton.addEventListener("click", async () => {
+     generatePlanButton.disabled = true;
+    generatePlanButton.textContent = "⏳ Generating...";
     const pendingTasks = tasks.filter((task) => !task.completed);
 
     if (pendingTasks.length === 0) {
@@ -389,9 +391,13 @@ Give a short motivational study plan.
         <strong>🎯 Next Mission</strong><br><br>
         ${data.response.replace(/\n/g, "<br>")}
     `;
+    generatePlanButton.disabled = false;
+generatePlanButton.textContent = "Generate AI Plan";
 
 } catch (error) {
     aiPlanText.innerHTML = "❌ Couldn't contact the AI server.";
+    generatePlanButton.disabled = false;
+generatePlanButton.textContent = "Generate AI Plan";
 }
   });
 }

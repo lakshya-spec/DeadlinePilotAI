@@ -15,6 +15,9 @@ An AI-powered deadline recovery agent that helps students and professionals prio
 - JavaScript
 - LocalStorage
 - GitHub
+- node.js
+- Express.js
+- Google Gemini API
 ## Live Demo
 
 🔗 https://lakshya-spec.github.io/DeadlinePilotAI/
@@ -28,11 +31,12 @@ An AI-powered deadline recovery agent that helps students and professionals prio
 
 ## Future Improvements
 
-- Gemini-powered personalized study plans
-- Task categories and filters
-- Dark/light mode toggle
-- User authentication and cloud sync
+- User authentication (Login/Signup)
+- Cloud sync across multiple devices
 - Calendar integration
+- Email or push notifications for upcoming deadlines
+- Team collaboration and shared task boards
+- AI productivity analytics and weekly insights
 ## Author
 
 Built by Lakshya Srivastava

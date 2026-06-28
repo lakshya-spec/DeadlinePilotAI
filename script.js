@@ -362,7 +362,7 @@ if (difference < 0) {
     
 
 try {
-    const response = await fetch("http://localhost:3000/generate", {
+    const response = await fetch("https://deadlinepilotai.onrender.com", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

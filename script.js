@@ -362,7 +362,7 @@ if (difference < 0) {
     
 
 try {
-    const response = await fetch("https://deadlinepilotai.onrender.com", {
+    const response = await fetch("https://deadlinepilotai.onrender.com/generate", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
